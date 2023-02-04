@@ -30,6 +30,11 @@ public class ITStoreController {
         return Flux.fromIterable(productsRepository.findAll()) ;
     }
 
+    @GetMapping("/first_N_products")
+    public Iterable<Products> getFirstNProducts(@RequestParam int N) {
+        return productsRepository.findProductsByIdProdIsBefore(N);
+    }
+
     @GetMapping("/product_max_profit")
     public Flux<ProductsRepository.CategoryProductProfit> getProductWithMaxProfit() {
         var set = productsRepository.findProductWithGreatestProfitInCategory();
@@ -47,7 +52,7 @@ public class ITStoreController {
 
     @GetMapping("/characteristics_for_product")
     public Flux<Characteristic> getCharacteristicsForProduct(@RequestParam(name = "productId", required = true) Integer productId) {
-        return Flux.fromIterable(characteristicRepository.findCharacteristicByProduct(new Products(productId)));
+        return Flux.fromIterable(characteristicRepository.findCharacteristicByProduct(productId));
     }
 
     @GetMapping("/customer_employee_suppliers")

@@ -55,6 +55,7 @@ public interface ProductsRepository extends JpaRepository<Products,Long> {
             "group by category\n" +
             "order by category;",nativeQuery = true)
     Set<CategoryProfit> findProfitForEachCategory();
+    Set<Products> findProductsByIdProdIsBefore(int N);
 
     interface CategoryProductProfit {
         String getCategory();
